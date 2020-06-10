@@ -23,3 +23,10 @@ $data = $diff->getData();
 // Get HTML data (use table tag)
 $html = $diff->getHtml();
 ```
+
+## composer
+
+```sh
+composer config repositories.japancellarjp/textdiff vcs https://github.com/japancellarjp/textdiff
+composer require japancellarjp/textdiff
+```
