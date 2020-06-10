@@ -1,5 +1,7 @@
 <?php
 
+namespace japancellarjp\textdiff;
+
 class TextDiff
 {
     private static $word_reg = null;
@@ -145,7 +147,7 @@ class TextDiff
                     ++$count;
                 } else {
                     $before = $count -1;
-                    if(array_key_exists($before, $words) && !array_key_exists('source', $words[$before])) {
+                    if(isset($words[$before]) && !isset($words[$before]['source'])) {
                         $words[$before] .= $val;
                     } else {
                         $words[] = $val;
@@ -177,8 +179,27 @@ class TextDiff
     }
 
     private function getSeparatedWord($str){
-        preg_match_all('/'.self::$word_reg.'/iu', $str, $matches);
-        return $matches[0];
+        if (class_exists('\Mecab\Tagger')) {
+            $mecab = new \Mecab\Tagger();
+            $a = explode(' ', $str);
+            $r = [];
+            foreach ($a as $k => $s) {
+                if ($k) {
+                    $r[] = ' ';
+                }
+                if (0 == strlen($s)) {
+                    continue;
+                }
+                $nodes = $mecab->parseToNode($s);
+                foreach ($nodes as $n) {
+                    $r[] = $n->getSurface();
+                }
+            }
+            return $r;
+        } else {
+            preg_match_all('/'.self::$word_reg.'/iu', $str, $matches);
+            return $matches[0];
+        }
     }
 
 

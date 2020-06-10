@@ -1,0 +1,17 @@
+{
+    "name": "japancellarjp/textdiff",
+    "description": "php TextDiff",
+    "authors": [
+        {
+            "name": "https://github.com/kijtra"
+        },
+        {
+            "name": "https://github.com/japancellarjp"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "japancellarjp\\textdiff\\": ""
+        }
+    }
+}
